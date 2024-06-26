@@ -25,8 +25,8 @@ int bfs(int i, int j){
             int ny = y+d.Y;
             if(nx <0 || nx >=n || ny <0 || ny >=m) continue;
             if(maps[nx][ny] !=1) continue;
-            maps[nx][ny] = 2; // 방문처리
-            q.push({nx, ny}); // 큐에 삽입
+            maps[nx][ny] = 2; 
+            q.push({nx, ny}); 
             count++;
         }
     }
