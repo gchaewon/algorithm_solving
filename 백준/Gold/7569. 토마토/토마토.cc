@@ -37,6 +37,10 @@ void bfs() {
     }
 }
 int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
     cin >> m >> n >> h;
     int count = 0;
     int day = 0;
@@ -54,12 +58,14 @@ int main() {
         }
     }
 
+    // 이미 다 익은 경우 예외처리
     if (count == 0) {
         cout << 0;
         return 0;
     }
 
     bfs();
+    // 안 익은 토마토가 있으면 -1, 다 익었으면 소요 시간 출력
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < n; j++) {
             for (int k = 0; k < m; k++) {
