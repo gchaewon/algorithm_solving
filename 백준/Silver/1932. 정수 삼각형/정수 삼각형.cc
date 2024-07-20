@@ -8,7 +8,7 @@ int main() {
     int n;
     cin >> n;
     vector<vector<long long>> num(n);
-    vector<vector<long long>> dp(n, vector<long long>(n, 0));
+    vector<vector<long long>> dp(n);
 
     for (int i = 0; i < n; i++) {
         vector<long long> floor(i + 1, 0);
@@ -18,7 +18,7 @@ int main() {
         num[i] = floor;
     }
 
-    // dp = num;
+    dp = num;
     dp[0][0] = num[0][0];
 
     for (int i = 1; i < n; i++) {
