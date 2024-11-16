@@ -3,45 +3,55 @@
 #include <queue>
 #include <iostream>
 
+
 using namespace std;
 
-void bfs(vector<vector<int>> &computers, vector<bool> &is_grouped, int n, int a, int b){
+
+void bfs(vector<vector<int>> &computers, int n, int next, vector<int> &is_connect){
     queue<int> q;
-    is_grouped[a] = true;
-    q.push(b);
-
-    while (!q.empty()) {
-        int next = q.front();
+    q.push(next); // 다음 컴퓨터 번호 넣기
+    cout << next << "\n";
+    while(!q.empty()){
+        int pre = q.front();
         q.pop();
-
-        for (int i = 0; i < n; i++) {
-            if (i == next || is_grouped[i]) {
+        
+        for(int i=0; i<n; i++){
+            if(computers[pre][i]!=1){
                 continue;
             }
-            if (computers[next][i] == 1) {
-                is_grouped[i] = true;
+            if(i!= next && computers[pre][i]){
+                cout << "방문합니다." << i  <<"\n";
+                computers[pre][i] = 2;
+                computers[i][pre] = 2;
+                is_connect[pre] = 1;
+                is_connect[i] = 1;
+                
                 q.push(i);
             }
         }
     }
 }
-
 int solution(int n, vector<vector<int>> computers) {
     int answer = 0;
-    vector<bool> is_grouped(n, false);
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (is_grouped[i] || is_grouped[j]) {
-                continue;
-            }
-            if (computers[i][j] == 1) {
-                bfs(computers, is_grouped, n, i, j);
+    vector<int> is_connect(n, 0);
+    
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(computers[i][j]==1 && i!=j){
+                computers[i][j]=computers[j][i]=2;
+                is_connect[i] = 1;
+                is_connect[j] = 1;
+                bfs(computers, n, j, is_connect);
                 answer++;
             }
         }
     }
-    
+    for(auto i: is_connect){
+        cout << i << " ";
+        if(!i){
+            answer++;
+        }
+    }
     
     return answer;
 }
