@@ -24,7 +24,6 @@ int main() {
 
     for (int i = 0; i < 3; i++) {
         ans += dp[n][i];
-        ans %= mod;
     }
 
     cout << ans % mod;
